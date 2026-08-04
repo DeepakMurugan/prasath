@@ -12,6 +12,7 @@ import { GearSlider } from "@/components/site/GearSlider";
 import { FaqSection } from "@/components/site/FaqSection";
 import { GalleryShowcase } from "@/components/site/GalleryShowcase";
 import heroAsset from "@/assets/hero.mp4.asset.json";
+import adminImage from "@/assets/admin.jpeg";
 const heroVideo = heroAsset.url;
 
 export const Route = createFileRoute("/")({
@@ -210,7 +211,7 @@ function Home() {
           <MotionReveal className="lg:col-span-5">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2px] gold-sheen soft-card group">
               <img
-                src="/src/assets/admin.jpeg"
+                src={adminImage}
                 alt="Behind the scenes — Pause Pictures"
                 className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
