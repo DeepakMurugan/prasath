@@ -17,11 +17,7 @@ const heroVideo = heroAsset.url;
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-<<<<<<< HEAD
-      { title: "Pause Pictures - Luxury Wedding & Cinematic Films" },
-=======
       { title: "Pause Pictures — Luxury Wedding & Cinematic Films" },
->>>>>>> 9e5c8fd59f557c7f6cdf29576f85d0de5a4d2e9d
       { name: "description", content: "Documentary wedding Flims,commercial production, corporate stories, social media influencer brand content and FPV & Aerial cinematography Crafted with editorial elegance and timeless intent" },
       { property: "og:title", content: "Pause Pictures — Luxury Wedding & Cinematic Films" },
       { property: "og:description", content: "Documentary wedding Flims,commercial production, corporate stories, social media influencer brand content and FPV & Aerial cinematography Crafted with editorial elegance and timeless intent" },
