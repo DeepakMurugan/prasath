@@ -5,11 +5,12 @@ import { Footer } from "@/components/site/Footer";
 import { PageHero } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
 import { FaqSection } from "@/components/site/FaqSection";
+import adminImage from "@/assets/admin.jpeg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — Pause Pictures" },
+      { title: "About - Pause Pictures" },
       { name: "description", content: "Pause Pictures Production is a Chennai-based production house founded by Prasath, specializing in cinematic photography, filmmaking, FPV drone cinematography, and creative visual storytelling." },
       { property: "og:title", content: "About — Pause Pictures" },
       { property: "og:description", content: "A Production House Built on Quiet Conviction." },
@@ -48,7 +49,7 @@ function About() {
           <Reveal className="lg:col-span-6">
             <div className="relative aspect-[4/5] rounded-[2px] overflow-hidden soft-card gold-sheen">
               <img
-                src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1200&q=85"
+                src={adminImage}
                 alt="Founder of Pause Pictures"
                 className="w-full h-full object-cover transition-transform duration-[1600ms] hover:scale-105"
               />
