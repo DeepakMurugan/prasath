@@ -210,7 +210,7 @@ function Home() {
           <MotionReveal className="lg:col-span-5">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2px] gold-sheen soft-card group">
               <img
-                src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1200&q=80"
+                src="/src/assets/admin.jpeg"
                 alt="Behind the scenes — Pause Pictures"
                 className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
