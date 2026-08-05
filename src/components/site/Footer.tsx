@@ -94,7 +94,7 @@ export function Footer() {
 
           <div className="flex gap-3 mt-8">
             {[
-              { Icon: Instagram, label: "Instagram", href: "#" },
+              { Icon: Instagram, label: "Instagram", href: "https://www.instagram.com/viewsofprasath?igsh=MTdvM2ZidHVkcWFtYQ==" },
               { Icon: Youtube, label: "YouTube", href: "#" },
             ].map(({ Icon, label, href }) => (
               <a
@@ -136,13 +136,13 @@ export function Footer() {
           <h4 className="text-[10px] tracking-[0.3em] uppercase text-gold mb-5">Contact</h4>
           <ul className="space-y-3 text-sm text-muted-foreground">
             <li>
-              <a href="mailto:hello@prasathfilms.in" className="flex items-center gap-2 hover:text-foreground">
-                <Mail size={13} className="text-gold" /> hello@prasathfilms.in
+              <a href="mailto:pausepicturesinfo@gmail.com" className="flex items-center gap-2 hover:text-foreground">
+                <Mail size={13} className="text-gold" /> pausepicturesinfo@gmail.com
               </a>
             </li>
             <li>
-              <a href="tel:+919800000000" className="flex items-center gap-2 hover:text-foreground">
-                <Phone size={13} className="text-gold" /> +91 98000 00000
+              <a href="tel:+918438430529" className="flex items-center gap-2 hover:text-foreground">
+                <Phone size={13} className="text-gold" /> +91 8438430529
               </a>
             </li>
             <li className="flex items-center gap-2">

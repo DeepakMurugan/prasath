@@ -10,7 +10,7 @@ import { Reveal } from "@/components/site/Reveal";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Enquire — Pause Pictures" },
+      { title: "Enquire - Pause Pictures" },
       { name: "description", content: "Begin your enquiry — tell us about your story, date, destination, and vision." },
       { property: "og:title", content: "Enquire — Pause Pictures" },
       { property: "og:description", content: "A multi-step, considered enquiry form for weddings, brands, and campaigns." },
@@ -249,11 +249,11 @@ function Contact() {
               <ul className="space-y-4 text-sm">
                 <li className="flex items-center gap-3">
                   <span className="w-9 h-9 rounded-full bg-gold/15 text-gold grid place-items-center"><Mail size={14} /></span>
-                  <a href="mailto:hello@prasathfilms.in" className="link-gold">hello@prasathfilms.in</a>
+                  <a href="mailto:pausepicturesinfo@gmail.com" className="link-gold">pausepicturesinfo@gmail.com</a>
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-9 h-9 rounded-full bg-gold/15 text-gold grid place-items-center"><Phone size={14} /></span>
-                  <a href="tel:+919800000000" className="link-gold">+91 98000 00000</a>
+                  <a href="tel:+918438430529" className="link-gold">+91 8438430529</a>
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-9 h-9 rounded-full bg-gold/15 text-gold grid place-items-center"><MapPin size={14} /></span>
@@ -261,11 +261,11 @@ function Contact() {
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-9 h-9 rounded-full bg-gold/15 text-gold grid place-items-center"><Instagram size={14} /></span>
-                  <a href="#" className="link-gold">@prasathfilms.in</a>
+                  <a href="https://www.instagram.com/viewsofprasath?igsh=MTdvM2ZidHVkcWFtYQ==" target="_blank" rel="noreferrer" className="link-gold">@viewsofprasath</a>
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-9 h-9 rounded-full bg-gold/15 text-gold grid place-items-center"><MessageCircle size={14} /></span>
-                  <a href="https://wa.me/919800000000" target="_blank" rel="noreferrer" className="link-gold">WhatsApp us directly</a>
+                  <a href="https://wa.me/918438430529" target="_blank" rel="noreferrer" className="link-gold">WhatsApp us directly</a>
                 </li>
               </ul>
 
