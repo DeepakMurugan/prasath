@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowRight, ArrowLeft, Check, Mail, Phone, MapPin, Instagram, MessageCircle } from "lucide-react";
+import emailjs from "@emailjs/browser";
 import { z } from "zod";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
@@ -41,6 +42,9 @@ const steps = [
   { n: "03", t: "Your Story" },
 ] as const;
 
+const EMAILJS_SERVICE_ID = "service_p5rtw2o";
+const EMAILJS_TEMPLATE_ID = "template_mcv29yx";
+
 function Contact() {
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<Form>({
@@ -48,6 +52,7 @@ function Contact() {
   });
   const [errors, setErrors] = useState<Partial<Record<keyof Form, string>>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
 
   const update = (k: keyof Form, v: string) => setForm((f) => ({ ...f, [k]: v }));
 
@@ -71,7 +76,7 @@ function Contact() {
   const next = () => { if (validateStep()) setStep((s) => Math.min(s + 1, steps.length - 1)); };
   const back = () => setStep((s) => Math.max(s - 1, 0));
 
-  const submit = () => {
+  const submit = async () => {
     const result = schema.safeParse(form);
     if (!result.success) {
       const partial: Partial<Record<keyof Form, string>> = {};
@@ -82,7 +87,36 @@ function Contact() {
       setErrors(partial);
       return;
     }
-    setSubmitted(true);
+
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    if (!publicKey) {
+      alert("Missing EmailJS public key. Set VITE_EMAILJS_PUBLIC_KEY in your .env file.");
+      return;
+    }
+
+    try {
+      setIsSending(true);
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          name: form.name,
+          email: form.email,
+          phone: form.phone || "Not provided",
+          service: form.service,
+          date: form.date || "Not provided",
+          destination: form.destination || "Not provided",
+          budget: form.budget,
+          story: form.story,
+        },
+        publicKey,
+      );
+      setSubmitted(true);
+    } catch {
+      alert("Failed to send enquiry. Please try again.");
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -224,9 +258,9 @@ function Contact() {
                         Continue <ArrowRight size={14} />
                       </button>
                     ) : (
-                      <button type="button" onClick={submit}
-                        className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-gold text-gold-foreground text-xs tracking-[0.25em] uppercase hover:bg-foreground hover:text-background transition-all">
-                        Send Enquiry <ArrowRight size={14} />
+                      <button type="button" onClick={submit} disabled={isSending}
+                        className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-gold text-gold-foreground text-xs tracking-[0.25em] uppercase hover:bg-foreground hover:text-background transition-all disabled:opacity-60 disabled:pointer-events-none">
+                        {isSending ? "Sending..." : "Send Enquiry"} <ArrowRight size={14} />
                       </button>
                     )}
                   </div>
