@@ -44,6 +44,7 @@ const steps = [
 
 const EMAILJS_SERVICE_ID = "service_p5rtw2o";
 const EMAILJS_TEMPLATE_ID = "template_mcv29yx";
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "gdeD38MAgX4kvOBjb";
 
 function Contact() {
   const [step, setStep] = useState(0);
@@ -88,8 +89,7 @@ function Contact() {
       return;
     }
 
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-    if (!publicKey) {
+    if (!EMAILJS_PUBLIC_KEY) {
       alert("Missing EmailJS public key. Set VITE_EMAILJS_PUBLIC_KEY in your .env file.");
       return;
     }
@@ -109,7 +109,7 @@ function Contact() {
           budget: form.budget,
           story: form.story,
         },
-        publicKey,
+        EMAILJS_PUBLIC_KEY,
       );
       setSubmitted(true);
     } catch {
