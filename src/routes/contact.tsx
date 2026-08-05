@@ -101,19 +101,32 @@ function Contact() {
         EMAILJS_TEMPLATE_ID,
         {
           name: form.name,
+          from_name: form.name,
           email: form.email,
+          from_email: form.email,
+          reply_to: form.email,
           phone: form.phone || "Not provided",
           service: form.service,
           date: form.date || "Not provided",
           destination: form.destination || "Not provided",
           budget: form.budget,
           story: form.story,
+          message: `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone || "Not provided"}\nService: ${form.service}\nDate: ${form.date || "Not provided"}\nDestination: ${form.destination || "Not provided"}\nBudget: ${form.budget}\n\nStory:\n${form.story}`,
         },
         EMAILJS_PUBLIC_KEY,
       );
       setSubmitted(true);
-    } catch {
-      alert("Failed to send enquiry. Please try again.");
+    } catch (error: unknown) {
+      // Surface EmailJS reason (e.g. invalid template vars, unauthorized domain) for faster fixes.
+      const reason =
+        typeof error === "object" &&
+        error !== null &&
+        "text" in error &&
+        typeof (error as { text?: unknown }).text === "string"
+          ? (error as { text: string }).text
+          : "Unknown error";
+      console.error("EmailJS send failed:", error);
+      alert(`Failed to send enquiry. ${reason}`);
     } finally {
       setIsSending(false);
     }
