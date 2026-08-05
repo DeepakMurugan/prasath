@@ -6,12 +6,11 @@ import { Footer } from "@/components/site/Footer";
 import { PageHero } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
 import { FaqSection } from "@/components/site/FaqSection";
-import { GalleryShowcase } from "@/components/site/GalleryShowcase";
 
 export const Route = createFileRoute("/experience")({
   head: () => ({
     meta: [
-      { title: "Gear & Crew — Pause Pictures" },
+      { title: "Gear & Crew - Pause Pictures" },
       { name: "description", content: "Cinema cameras, lenses, aerial rigs, and the crew behind Pause Pictures." },
       { property: "og:title", content: "Gear & Crew — Pause Pictures" },
       { property: "og:description", content: "The tools and the team that make our films possible." },
@@ -141,12 +140,6 @@ function Experience() {
         </Reveal>
         <GearSlider />
       </section>
-
-      <GalleryShowcase
-        eyebrow="Studio Gallery"
-        title="A gallery that feels like a premium spread."
-        intro="Browse our signature moments with immersive cards, polished transitions, and responsive layout behaviour across every screen size."
-      />
 
       {/* Full Gear Grid */}
       <section className="section-y section-cream border-y border-foreground/[0.05]">

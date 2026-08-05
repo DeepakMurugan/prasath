@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowRight, Play } from "lucide-react";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
@@ -9,7 +9,7 @@ import { Reveal } from "@/components/site/Reveal";
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
     meta: [
-      { title: "Films — Pause Pictures" },
+      { title: "Films - Pause Pictures" },
       { name: "description", content: "A collection of films that blend creativity, storytelling, and visual craftsmanship to create memorable experiences." },
       { property: "og:title", content: "Films — Pause Pictures" },
       { property: "og:description", content: "Weddings, commercials, and creative films — from Chennai to the world." },
@@ -20,21 +20,81 @@ export const Route = createFileRoute("/portfolio")({
 
 type Cat = "All" | "Weddings" | "Commercial" | "Creative";
 
-const items: { title: string; meta: string; cat: Exclude<Cat, "All">; img: string; big?: boolean }[] = [
-  { title: "Ananya & Rohan", meta: "Leela Palace · Udaipur", cat: "Weddings", big: true, img: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1400&q=80" },
-  { title: "Tanishq Heritage", meta: "Commercial · Chennai", cat: "Commercial", img: "https://images.unsplash.com/photo-1606800052052-a08af7148866?w=1000&q=80" },
-  { title: "Priya & Karthik", meta: "Chettinad · Karaikudi", cat: "Weddings", img: "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1000&q=80" },
-  { title: "Aerial Symphony", meta: "FPV · Ladakh", cat: "Creative", big: true, img: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=1400&q=80" },
-  { title: "Sabyasachi Editorial", meta: "Fashion · Kolkata", cat: "Commercial", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1000&q=80" },
-  { title: "Meera & Arjun", meta: "Beach · Goa", cat: "Weddings", img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1000&q=80" },
-  { title: "Coldplay India", meta: "Concert · Mumbai", cat: "Creative", img: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=1000&q=80" },
-  { title: "JW Marriott Reveal", meta: "Hospitality · Chennai", cat: "Commercial", img: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=1000&q=80" },
-  { title: "Sara & Aditya", meta: "Palace · Jaipur", cat: "Weddings", img: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1000&q=80" },
+type PortfolioItem = {
+  title: string;
+  meta: string;
+  cat: Exclude<Cat, "All">;
+  videoId: string;
+  description: string;
+};
+
+const items: PortfolioItem[] = [
+  {
+    title: "Yuvan Event Promo",
+    meta: "Event · Chennai",
+    cat: "Creative",
+    videoId: "YABql04ZDYg",
+    description: "High-energy event motion with a cinematic rhythm built for social release and brand recall.",
+  },
+  {
+    title: "Pavi & Aakash Outdoor Shoot",
+    meta: "Outdoor · Coimbatore",
+    cat: "Weddings",
+    videoId: "hQRVHmbYSa4",
+    description: "A warmth-led outdoor story with natural movement, editorial framing, and immersive light.",
+  },
+  {
+    title: "Pride Hospitals Shoot",
+    meta: "Brand · Chennai",
+    cat: "Commercial",
+    videoId: "fNoPlr5A-dY",
+    description: "A polished brand film focused on clarity, trust, and cinematic storytelling for healthcare.",
+  },
+  {
+    title: "Kishore & Priya Outdoor Shoot",
+    meta: "Outdoor · Chennai",
+    cat: "Weddings",
+    videoId: "skK4Y4hwXx4",
+    description: "A soft, sunlit outdoor portrait film that feels intimate and timeless.",
+  },
+  {
+    title: "Aparajith Jayaveena Marriage Shoot",
+    meta: "Wedding · Chennai",
+    cat: "Weddings",
+    videoId: "FhesjyTUJV4",
+    description: "An intimate marriage story captured with emotional rhythm and warm editorial detail.",
+  },
+  {
+    title: "KK Hari Marriage Shoot",
+    meta: "Wedding · Chennai",
+    cat: "Weddings",
+    videoId: "T-W8_PMyK9k",
+    description: "A wedding film with graceful pacing, expressive movement, and story-first coverage.",
+  },
+  {
+    title: "மழைநீர் சேமிப்பு - Concept Creative",
+    meta: "Concept Creative · Chennai",
+    cat: "Creative",
+    videoId: "hdy_oltMaok",
+    description: "A concept-led creative film shaped around social impact and visual clarity.",
+  },
 ];
+
+const getEmbedUrl = (videoId: string) =>
+  `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0&playsinline=1&loop=1&playlist=${videoId}`;
 
 function Portfolio() {
   const [cat, setCat] = useState<Cat>("All");
-  const filtered = useMemo(() => cat === "All" ? items : items.filter((i) => i.cat === cat), [cat]);
+  const [activeVideoId, setActiveVideoId] = useState(items[0].videoId);
+
+  const filtered = useMemo(() => (cat === "All" ? items : items.filter((item) => item.cat === cat)), [cat]);
+  const activeVideo = filtered.find((item) => item.videoId === activeVideoId) ?? filtered[0];
+
+  useEffect(() => {
+    if (!filtered.some((item) => item.videoId === activeVideoId)) {
+      setActiveVideoId(filtered[0]?.videoId ?? items[0].videoId);
+    }
+  }, [activeVideoId, filtered]);
 
   return (
     <div className="paper-grain">
@@ -56,7 +116,7 @@ function Portfolio() {
                 A modern archive of cinematic moments.
               </h2>
               <p className="mt-3 text-base md:text-lg text-muted-foreground leading-relaxed">
-                Browse by story type and explore the atmosphere, movement, and detail behind each film.
+                Play the film you want, and let the rest stay ready in a looped, responsive gallery.
               </p>
             </div>
 
@@ -64,6 +124,7 @@ function Portfolio() {
               {(["All", "Weddings", "Commercial", "Creative"] as Cat[]).map((c) => (
                 <button
                   key={c}
+                  type="button"
                   onClick={() => setCat(c)}
                   className={`rounded-full border px-4 py-2 text-[11px] tracking-[0.28em] uppercase transition-all duration-300 ${
                     cat === c
@@ -78,49 +139,63 @@ function Portfolio() {
           </div>
         </Reveal>
 
-        <div className="grid gap-4 xl:grid-cols-[1.2fr_0.8fr]">
-          {filtered[0] && (
-            <Reveal delay={80}>
-              <div className="group relative overflow-hidden rounded-[2px] editorial-panel min-h-[420px] md:min-h-[520px]">
-                <img
-                  src={filtered[0].img}
-                  alt={filtered[0].title}
-                  loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1100ms] group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/20 to-transparent" />
-                <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
-                <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 lg:p-10 text-background">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] tracking-[0.3em] uppercase backdrop-blur-sm">
-                    <Play size={12} className="ml-0.5" fill="currentColor" /> Featured film
-                  </div>
-                  <h3 className="mt-5 font-display text-3xl md:text-4xl leading-tight">{filtered[0].title}</h3>
-                  <p className="mt-3 max-w-md text-sm leading-relaxed text-background/80">{filtered[0].meta}</p>
-                </div>
-              </div>
-            </Reveal>
-          )}
-
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
-            {filtered.slice(1, 5).map((f, i) => (
-              <Reveal key={f.title} delay={120 + i * 80}>
-                <div className="group relative overflow-hidden rounded-[2px] editorial-panel aspect-[4/3] sm:aspect-[5/4] xl:aspect-[4/3]">
-                  <img
-                    src={f.img}
-                    alt={f.title}
+        <div className="grid gap-5 lg:grid-cols-[1.15fr_0.85fr]">
+          <Reveal delay={80}>
+            <div className="rounded-[2px] editorial-panel bg-[#fffaf3] p-3 md:p-4">
+              <div className="relative aspect-video overflow-hidden rounded-[2px] bg-black">
+                {activeVideo && (
+                  <iframe
+                    src={getEmbedUrl(activeVideo.videoId)}
+                    title={activeVideo.title}
+                    className="absolute inset-0 h-full w-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
                     loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/20 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-5 md:p-6 text-background">
-                    <p className="text-[10px] tracking-[0.3em] uppercase text-gold">{f.cat}</p>
-                    <h3 className="mt-2 font-display text-2xl leading-tight">{f.title}</h3>
-                    <p className="mt-2 text-sm text-background/80">{f.meta}</p>
+                )}
+              </div>
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+                <span className="rounded-full border border-gold/20 bg-gold/10 px-3 py-1 text-[10px] tracking-[0.28em] uppercase text-gold">
+                  {activeVideo?.cat}
+                </span>
+                <span className="text-[10px] tracking-[0.32em] uppercase text-muted-foreground">
+                  Looping showcase
+                </span>
+              </div>
+              <h3 className="mt-4 font-display text-2xl md:text-3xl leading-tight">{activeVideo?.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{activeVideo?.meta}</p>
+              <p className="mt-3 text-sm leading-relaxed text-foreground/80">{activeVideo?.description}</p>
+            </div>
+          </Reveal>
+
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
+            {filtered.map((item, index) => (
+              <Reveal key={item.title} delay={120 + index * 70}>
+                <button
+                  type="button"
+                  onClick={() => setActiveVideoId(item.videoId)}
+                  className={`group w-full overflow-hidden rounded-[2px] editorial-panel text-left ${
+                    activeVideo?.videoId === item.videoId ? "ring-2 ring-gold/70" : ""
+                  }`}
+                >
+                  <div className="relative aspect-video overflow-hidden bg-black">
+                    <img
+                      src={`https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg`}
+                      alt={item.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/20 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 p-4 md:p-5 text-background">
+                      <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[10px] tracking-[0.28em] uppercase backdrop-blur-sm">
+                        <Play size={11} className="ml-0.5" fill="currentColor" /> Play
+                      </div>
+                      <p className="mt-3 text-[10px] tracking-[0.3em] uppercase text-gold">{item.cat}</p>
+                      <h3 className="mt-1 font-display text-xl leading-tight">{item.title}</h3>
+                      <p className="mt-1 text-sm text-background/80">{item.meta}</p>
+                    </div>
                   </div>
-                  <div className="absolute right-4 top-4 rounded-full border border-white/20 bg-white/10 p-2 text-background backdrop-blur-sm transition-transform duration-500 group-hover:translate-x-1">
-                    <ArrowRight size={14} />
-                  </div>
-                </div>
+                </button>
               </Reveal>
             ))}
           </div>

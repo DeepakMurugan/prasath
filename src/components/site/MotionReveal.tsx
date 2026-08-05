@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 // Elite editorial easing — "expensive" out-curve
 const EASE = [0.16, 1, 0.3, 1] as const;
-const DUR = 0.7;
+const DUR = 0.42;
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 22 },
@@ -39,7 +39,7 @@ export function MotionReveal({
 
 const stagger: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.04 } },
+  show: { transition: { staggerChildren: 0.04, delayChildren: 0.02 } },
 };
 
 export function MotionStagger({
@@ -116,7 +116,7 @@ export function SplitReveal({
             className="inline-block will-change-transform"
             variants={{
               hidden: { y: "110%" },
-              show: { y: "0%", transition: { duration: 0.75, ease: EASE } },
+              show: { y: "0%", transition: { duration: 0.45, ease: EASE } },
             }}
           >
             {w}
@@ -150,7 +150,7 @@ export function RevealImage({
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.9, ease: EASE }}
+      transition={{ duration: 0.5, ease: EASE }}
     >
       <motion.img
         src={src}
@@ -159,7 +159,7 @@ export function RevealImage({
         initial={{ scale: 1.06 }}
         whileInView={{ scale: 1 }}
         viewport={{ once: true, amount: 0.25 }}
-        transition={{ duration: 1.4, ease: EASE }}
+        transition={{ duration: 0.7, ease: EASE }}
         className={`w-full h-full object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.04] ${imgClassName ?? ""}`}
       />
       {children}
