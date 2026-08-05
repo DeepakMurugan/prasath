@@ -170,18 +170,19 @@ export function Footer() {
       <div className="relative border-t border-foreground/[0.08]">
         <div className="container-x py-6 flex flex-col md:flex-row justify-between gap-3 text-[11px] tracking-wider text-muted-foreground">
           <p>© {new Date().getFullYear()} Pause Pictures — All rights reserved.</p>
-         <p className="text-sm text-gray-400">
-  Website Designed & Developed by{" "}
-  <a
-    href="https://dtechgrow.com"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="font-semibold text-gold hover:underline transition-all"
-    aria-label="DTech Grow - Web Design & Development Agency"
-  >
-    DTech Grow
-  </a>
-</p>
+          <p className="inline-flex flex-wrap items-center gap-2 text-xs text-foreground/65">
+            Website by
+            <a
+              href="https://dtechgrow.com"
+              target="_blank"
+              rel="noopener"
+              className="rounded-full border border-gold/25 bg-gold/10 px-3 py-1 font-semibold text-gold transition-all hover:bg-gold hover:text-gold-foreground"
+              aria-label="DTech Grow - Web Design & Development Agency"
+              title="DTech Grow - Web Design & Development Agency"
+            >
+              DTech Grow Web Design Agency
+            </a>
+          </p>
         </div>
       </div>
     </footer>
